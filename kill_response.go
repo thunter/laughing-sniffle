@@ -1,77 +1,80 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"encoding/json"
 )
 
 type KillResponse struct {
-	Package KillPackage
+	Package KillPackage `json:"package"`
 }
 
 type KillPackage struct {
-	KillID int
-	Killmail KillMail
-	Zkb KillZkillBoard
+	KillId int `json:"killID"`
+	Killmail KillMail `json:"killmail"`
+	Zkb KillZkillBoard `json:"zkb"`
 }
 
 type KillMail struct {
-	Attackers []KillAttackers
-	Killmail_id int
-	Killmail_time string
-	Solar_system_id int
-	Victim KillVictim
+	Attackers []KillAttackers `json:"attackers"`
+	KillmailId int `json:"killmail_id"`
+	KillmailTime string `json:"killmail_time"`
+	SolarSystemId int `json:"solar_system_id"`
+	Victim KillVictim `json:"victim"`
 }
 
 type KillAttackers struct {
-	Alliance_id int
-	Character_id int
-	Corporation_id int
-	Damage_done int
-	Final_blow bool
-	Security_status float32
-	Ship_type_id int
-	Weapon_type_id int
+	AllianceId int `json:"alliance_id"`
+	CharacterId int `json:"character_id"`
+	CorporationId int `json:"corporation_id"`
+	DamageDone int `json:"damage_done"`
+	FinalBlow bool `json:"final_blow"`
+	SecurityStatus float32 `json:"security_status"`
+	ShipTypeId int `json:"ship_type_id"`
+	WeaponTypeId int `json:"weapon_type_id"`
 }
 
 type KillVictim struct {
-	Alliance_id int
-	Character_id int
-	Corporation_id int
-	Damage_taken int
-	Ship_type_id int
-	Items []KillItems
+	AllianceId int `json:"alliance_id"`
+	CharacterId int `json:"character_id"`
+	CorporationId int `json:"corporation_id"`
+	DamageTaken int `json:"damage_taken"`
+	ShipTypeId int `json:"ship_type_id"`
+	Items []KillItems `json:"items"`
+	Position KillPosition `json:"position"`
 }
 
 type KillItems struct {
-	Flag int
-	Item_type_id int
-	Quantity_dropped int
-	singleton int
+	Flag int `json:"flag"`
+	ItemTypeId int `json:"item_type_id"`
+	QuantityDropped int `json:"quantity_dropped"`
+	Singleton int `json:"singleton"`
 }
 
 type KillPosition struct {
-	x float32
-	y float32
-	z float32
+	X float32 `json:"x"`
+	Y float32 `json:"y"`
+	Z float32 `json:"z"`
 }
 
 type KillZkillBoard struct {
-	LocationID int
-	Hash string
-	FittedValue float32
-	totalValue float32
-	points int
-	npc bool
-	solo bool
-	awox bool
-	href string
+	LocationID int `json:"locationID"`
+	Hash string `json:"hash"`
+	FittedValue float32 `json:"fittedValue"`
+	TotalValue float32 `json:"totalValue"`
+	Points int `json:"points"`
+	Npc bool `json:"npc"`
+	Solo bool `json:"solo"`
+	Awox bool `json:"awox"`
+	Href string `json:"href"`
 }
 
-func parseKillMail(killMail string) KillResponse  {
-	var kill KillResponse
-	if err := json.Unmarshal([]byte(killMail), &kill); err != nil {
-		log.Fatal(err)
+func parseKillMail(body []byte) (*KillResponse, error)  {
+	var kill = new(KillResponse)
+	err := json.Unmarshal(body, &kill)
+	if err != nil {
+		fmt.Println("Error parshing JSON:", err)
 	}
-	return kill
+
+	return kill, err
 }

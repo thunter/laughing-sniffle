@@ -25,7 +25,7 @@ func main() {
 
 		fmt.Printf("%d Raw JSON: %s\n",i, body)
 
-		killmail := parseKillMail(string(body))
+		killmail, err := parseKillMail(body)
 
 		fmt.Printf("%d Processed JSON: %#v", i, killmail)
 		i++
