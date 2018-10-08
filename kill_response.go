@@ -6,7 +6,7 @@ import (
 )
 
 type KillResponse struct {
-	Package KillPackage `json:"package"`
+	Package *KillPackage `json:"package,omitempty"`
 }
 
 type KillPackage struct {

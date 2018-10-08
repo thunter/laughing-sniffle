@@ -5,3 +5,5 @@ Just a random set of ideas
 Storage:
   ☐ Write raw json to file location
   ☐ Store killboard object into a database
+
+  ☐ Write notification to SQS

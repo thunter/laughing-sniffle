@@ -1,4 +1,4 @@
-# Laughing-sniffle
+# Laughing-Sniffle
 
 Bit of go to play with the zkillboard RedisQ interface.
 
